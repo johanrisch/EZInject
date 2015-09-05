@@ -37,8 +37,8 @@ uploadArchives {
     configuration = configurations.archives
     repositories.mavenDeployer {
         pom.groupId = "Risch"
-        pom.artifactId = "EZInject-1.0"
-        pom.version = 1.0
+        pom.artifactId = "EZInject"
+        pom.version = 1.1
         configuration = configurations.deployerJar
         repository(url: "git:releases://https://github.com/johanrisch/EZInject.git")
         snapshotRepository(url: "git:snapshots://https://github.com/johanrisch/EZInject.git")
@@ -48,7 +48,7 @@ uploadArchives {
             description ""
             url ""
             scm {
-                url ""
+                url ""//GET /repos/:owner/:repo/contents/:path
                 connection ""
                 developerConnection ""
             }
