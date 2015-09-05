@@ -1,6 +1,7 @@
 package risch.ezinject;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -89,5 +90,16 @@ public class EZInject {
         singletons = new HashMap<>();
     }
 
-
+    public static void inject(Object object) {
+        Field[] f = object.getClass().getDeclaredFields();
+        for(int i = 0; i < f.length; i++){
+            if(f[i].getAnnotation(Inject.class) != null){
+                try {
+                    f[i].set(object,EZInject.create(f[i].getType()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package risch.ezinject;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 
@@ -119,6 +120,33 @@ public class EZInjectTest extends TestCase {
         EZInject.bind(ITest.class).to(TestBindInstance2.class);
         EZInject.create(ITest.class);
     }
+
+    public void testInjectFieldsInClass(){
+        EZInject.reset();
+        EZInject.bind(ITest.class).to(TestImpl.class);
+        EZInject.bind(ITest2.class).to(TestImpl2.class);
+        new TestInjectFields();
+    }
+
+    public void testCustomScope() {
+        EZInject.reset();
+    }
+
+    public static class TestInjectFields {
+        @Inject
+        ITest test;
+
+        @Inject
+        ITest2 test2;
+
+        public TestInjectFields(){
+            EZInject.inject(this);
+            Assert.assertNotNull(test);
+            Assert.assertNotNull(test2);
+        }
+    }
+
+
     public static class TestBindInstance implements ITest{
         @Inject
         public TestBindInstance(Integer i){
